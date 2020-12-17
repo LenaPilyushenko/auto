@@ -1,0 +1,95 @@
+@charset "UTF-8";
+
+
+html {
+    box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: inherit;
+}
+
+body {
+    background-color: #f5f5f5;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.429;
+    color: black;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+header {
+    padding: 50px 0 10px;
+}
+
+.button {
+    padding: 15px;
+    border-radius: 25px;
+    border: 0;
+    background: #887cad;
+    color: #fff;
+    transition: all 400ms ease;
+    text-transform: uppercase;
+    font-size: 12px;
+    outline: none;
+}
+
+.button:hover {
+    transition: all 400ms ease;
+    background:#5d5282;
+    cursor: pointer;
+}
+
+.text {
+    font-size: 2em;
+    margin: 0;
+}
+
+ul.user-list {
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul.user-list li {
+    display: block;
+    margin: 10px 0;
+    position: relative;
+    padding-left: 20px;
+}
+
+ul.user-list li:before {
+    content: '';
+    position: absolute;
+    top: 14px;
+    left: 5px;
+    width: 5px;
+    height: 5px;
+    background: #887cad;
+    border-radius: 50%;
+    transition: all 400ms ease;
+}
+
+button.delete {
+    border: 0;
+    background: transparent;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    line-height: 40px;
+    text-align: center;
+    opacity: 0.7;
+    display: inline-block;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+button.delete:hover {
+    transition: all 400ms ease;
+    opacity: 1;
+}
