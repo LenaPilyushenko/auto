@@ -64,15 +64,9 @@ ul.user-list li {
 }
 
 ul.user-list li:before {
-    content: '';
-    position: absolute;
-    top: 14px;
-    left: 5px;
-    width: 5px;
-    height: 5px;
-    background: #887cad;
-    border-radius: 50%;
-    transition: all 400ms ease;
+    content: '- ';
+    color: #887cad;
+    font-size: 1.4em;
 }
 
 button.delete {

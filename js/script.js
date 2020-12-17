@@ -2,10 +2,20 @@
 
 const btnRegister = document.getElementById('register'), // кнопка зарегистрировать
     buttonControl = document.querySelector('.button-control'), // форма
-    userlist = document.querySelector('.user-list'), // блок для вывода
-    obj = {};
+    userlist = document.querySelector('.user-list'); // блок для вывода
+    
 
 let  arr = [], dataBase =[];
+
+if (localStorage.getItem('dataBase') && localStorage.getItem('dataBase') !== null) {
+    dataBase = JSON.parse(localStorage.getItem('dataBase'));
+    const li = document.createElement('li');
+    dataBase.forEach((elem) => {
+        const li = document.createElement('li');
+        li.textContent = 'Имя: ' + elem.firstName + ', Фамилия: ' + elem.lastName + ', дата регистрации: ' + elem.dataReg;
+        userlist.append(li);
+    });
+}
 
 const render = function() {
 
@@ -25,42 +35,39 @@ const render = function() {
             second: 'numeric'
         };
         
+
         const dataReg = date.toLocaleString("ru", options);
        
-        obj.firstName = arr[0];
-        obj.lastName = arr[1];
-        obj.dataReg = dataReg;
-        obj.login = userlogin;
-        obj.password = userPassword;
+        const obj = {
+            firstName: arr[0],
+            lastName: arr[1],
+            dataReg: dataReg,
+            login: userlogin,
+            password: userPassword,
+        };
+        
+        const li = document.createElement('li');
+        li.textContent = 'Имя: ' + obj.firstName + ', Фамилия: ' + obj.lastName + ', дата регистрации: ' + obj.dataReg;
 
+        userlist.append(li);
         
-        
-        
-        console.log('obj: ', obj);
         dataBase.push(obj);
-        
-        console.log('dataBase: ', dataBase);
-      
-    };
 
-    
+        localStorage.setItem('dataBase', JSON.stringify(dataBase));
+              
+    };
 
     btnRegister.addEventListener('click' , function() {
         const userText = prompt('Введите через пробел имя и фамилию пользователя ', 'Пилюшенко Елена');
-        console.log('userText: ', userText);
-
+        
         arr = userText.split(' ');
-        console.log('arr.length: ', arr.length);
-      
+             
         if (arr.length === 2) {
             addUser();
         } else {
             alert('Ошибка, введите корректные данные');
             return;
-        }
-    
-        // userlist.append(userText);
-
+        }    
     });
 
 };
