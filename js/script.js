@@ -2,9 +2,10 @@
 
 const btnRegister = document.getElementById('register'), // кнопка зарегистрировать
     buttonControl = document.querySelector('.button-control'), // форма
-    userlist = document.querySelector('.user-list'); // блок для вывода
+    userlist = document.querySelector('.user-list'),
+    text = document.querySelector('.text'),
+    btnLogin = document.getElementById('login'); // кнопка зарегистрировать; // блок для вывода
     
-
 let  arr = [], dataBase =[];
 
 if (localStorage.getItem('dataBase') && localStorage.getItem('dataBase') !== null) {
@@ -12,7 +13,8 @@ if (localStorage.getItem('dataBase') && localStorage.getItem('dataBase') !== nul
     const li = document.createElement('li');
     dataBase.forEach((elem) => {
         const li = document.createElement('li');
-        li.textContent = 'Имя: ' + elem.firstName + ', Фамилия: ' + elem.lastName + ', дата регистрации: ' + elem.dataReg;
+        li.innerHTML = 'Имя: ' + elem.firstName + ', Фамилия: ' + elem.lastName +
+         ', дата регистрации: ' + elem.dataReg + ' <button class="user-remove">×</button>';
         userlist.append(li);
     });
 }
@@ -47,17 +49,18 @@ const render = function() {
         };
         
         const li = document.createElement('li');
-        li.textContent = 'Имя: ' + obj.firstName + ', Фамилия: ' + obj.lastName + ', дата регистрации: ' + obj.dataReg;
+        li.innerHTML = 'Имя: ' + obj.firstName + ', Фамилия: ' + obj.lastName +
+         ', дата регистрации: ' + obj.dataReg + ' <button class="user-remove">×</button>';
 
         userlist.append(li);
         
         dataBase.push(obj);
-
+    
         localStorage.setItem('dataBase', JSON.stringify(dataBase));
-              
+
     };
 
-    btnRegister.addEventListener('click' , function() {
+    btnRegister.addEventListener('click' , () => {
         const userText = prompt('Введите через пробел имя и фамилию пользователя ', 'Пилюшенко Елена');
         
         arr = userText.split(' ');
@@ -70,11 +73,67 @@ const render = function() {
         }    
     });
 
+    btnLogin.addEventListener('click' , () => {
+        const loginName = prompt('Введите логин');
+        const loginPass = prompt('Введите пароль');
+        let flag, 
+            count;
+      
+        dataBase.forEach((elem, i) => {
+            if (elem.login === loginName && elem.password === loginPass ) {
+                flag = true;   
+                count = i;          
+            } else {
+                return;              
+            }
+        });
+
+        if (flag) {
+            text.textContent = 'Привет, ' + dataBase[count].firstName; 
+           
+        } else {
+            alert('Пользователь с таким именем не найден');
+        }
+       
+    });
+
+    
+    userlist.addEventListener('click', (event) => {
+        
+        const target = event.target.closest('li');
+      
+        const deleteUser = (elem) => {
+
+            const myArr = elem.textContent.split(','),
+                myArr2= myArr[0].split(':'),
+                index = myArr2[1];
+                
+            let indexUserDel;
+
+            elem.remove();
+           
+            dataBase.forEach((item, i) => {
+                if (item.firstName.trim() === index.trim()) {
+                    indexUserDel = i;           
+                }           
+            });
+            dataBase.splice(indexUserDel, 1);
+            localStorage.setItem('dataBase', JSON.stringify(dataBase));
+
+        };
+
+
+        if (target) {
+            deleteUser(target);
+        }
+        
+    });
+
+
 };
 
 buttonControl.addEventListener('submit' , function (event) {
     event.preventDefault();
-    
 });
 
 render();

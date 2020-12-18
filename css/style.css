@@ -87,3 +87,17 @@ button.delete:hover {
     transition: all 400ms ease;
     opacity: 1;
 }
+button.user-remove {
+    background: #d01d1d;
+    border: 0;
+    color: #fff;
+    border-radius: 50%;
+    font-size: 1.4em;
+    display: inline-block;
+    vertical-align: middle;
+    width: 26px;
+    height: 25px;
+    line-height: 24px;
+    cursor: pointer;
+    outline: none;
+}
